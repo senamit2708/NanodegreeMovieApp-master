@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Movie Masti</string>
+    <string-array name="spinner_list_item_array">
+        <item>Popular</item>
+        <item>Top Rated</item>
+        <item>Now Playing</item>
+        <item>Upcoming</item>
+
+    </string-array>
+
+    <string name="interntAlertTitle">Alert Message</string>
+    <string name="internetAlertMessage">No internet connection</string>
+    <string name="firealert">ok</string>
+    <string name="amit">Amit header</string>
+    <string name="internetMessage">No Internet Available</string>
+    <string name="alertTitle">Alert</string>
+    <string name="alertButton">Ok</string>
+</resources>
