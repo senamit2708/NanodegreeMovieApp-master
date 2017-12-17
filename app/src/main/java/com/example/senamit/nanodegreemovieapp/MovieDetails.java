@@ -14,6 +14,7 @@ public class MovieDetails implements Parcelable {
     private String movieImageUrl;
     private Bitmap bitmap;
 
+
     public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, Bitmap bitmap) {
         this.movieName = movieName;
         this.movieReleaseDate = movieReleaseDate;

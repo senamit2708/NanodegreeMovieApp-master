@@ -34,6 +34,7 @@ public class MovieDetailDescription extends AppCompatActivity {
         TextView txtMovieName = findViewById(R.id.txt_movie_name);
         TextView txtMovieReleaseDate = findViewById(R.id.txt_movieReleaseDate);
         TextView txtMovieDescr = findViewById(R.id.txt_movie_descr);
+        TextView txtMovieRating = findViewById(R.id.movieRating);
         final ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
         Intent intent = getIntent();
         bundle = intent.getExtras();
@@ -41,7 +42,7 @@ public class MovieDetailDescription extends AppCompatActivity {
         txtMovieName.setText(movieDetails.getMovieName());
         txtMovieReleaseDate.setText(movieDetails.getMovieReleaseDate());
         txtMovieDescr.setText(movieDetails.getMovieOverView());
-
+        txtMovieRating.setText(movieDetails.getMovieRating());
 
         target = new Target() {
             @Override
