@@ -104,6 +104,7 @@ public class QueryUtils {
             StringBuilder imagePath = new StringBuilder();
             imagePath.append("http://image.tmdb.org/t/p/w500");
             imagePath.append(movieImage);
+            Log.i(LOG_TAG, "movie name is "+movieName);
             movieDetailsArrayList.add(new MovieDetails(movieName, releaseDate, movieRating, movieOverView, imagePath.toString()));
         }
         return movieDetailsArrayList;
@@ -111,9 +112,11 @@ public class QueryUtils {
 
     public static ArrayList<MovieDetails> fetchMovieRequest(String stringUrl) throws IOException, JSONException {
         URL url = createUrl(stringUrl);
+        Log.i(LOG_TAG, "the url is "+url);
         String jsonResponsee = null;
         jsonResponsee = makeHttpRequest(url);
         movieDetailsArrayList = extractFeaturesFromJSON(jsonResponsee);
+        Log.i(LOG_TAG, "inside the queryutils to retrive data");
         return movieDetailsArrayList;
     }
 }

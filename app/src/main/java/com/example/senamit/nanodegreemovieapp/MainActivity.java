@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     RecyclerView recyclerView;
     MovieDetailAdapter movieDetailAdapter;
-    private static int count = 0;
+    private static int count = 1;
     Spinner spinner;
     Bundle savedInstanceState;
     SharedPreferences sharedPreferences;
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         editor = sharedPreferences.edit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Log.i(LOG_TAG, "inside oncreate");
         if (!CheckNetwork.isInternetAvailable(getApplicationContext())) {
             AlertDialogSettingFragment alertDialogSettingFragment = new AlertDialogSettingFragment();
             alertDialogSettingFragment.show(getSupportFragmentManager(), "dialog");
@@ -58,26 +59,41 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView = findViewById(R.id.recycler);
         mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
+        Log.i(LOG_TAG, "inside stepuprecycler");
+//        count++;
+        loadercalling();
+
+
+
+    }
+
+    private void loadercalling() {
+        Log.i(LOG_TAG, "inside loader calling" +count);
+
         getLoaderManager().initLoader(count, savedInstanceState, MainActivity.this);
+//        count++;
     }
 
     @Override
     public Loader<List<MovieDetails>> onCreateLoader(int i, Bundle bundle) {
+        Log.i(LOG_TAG, "the count is "+count);
         return new MovieDetailsLoader(this, stringTest);
     }
 
     @Override
     public void onLoadFinished(Loader<List<MovieDetails>> loader, List<MovieDetails> movieDetailsList) {
         if (movieDetailsList != null) {
+            Log.i(LOG_TAG, "inside onloafinish");
             movieDetailAdapter = new MovieDetailAdapter(movieDetailsList, this);
             recyclerView.setAdapter(movieDetailAdapter);
         }
-        count++;
+
+//        count++;
     }
 
     @Override
     public void onLoaderReset(Loader<List<MovieDetails>> loader) {
-        movieDetailAdapter = new MovieDetailAdapter(new ArrayList<MovieDetails>(), this);
+//        movieDetailAdapter = new MovieDetailAdapter(new ArrayList<MovieDetails>(), this);
         recyclerView.setAdapter(null);
     }
 
@@ -97,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 R.array.spinner_list_item_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        Log.i(LOG_TAG, "inside option menu");
         int value = sharedPreferences.getInt("positionKey", -1);
         if (value != -1) {
             spinner.setSelection(value);
@@ -108,7 +125,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 editor.putInt("positionKey", position);
                 editor.commit();
                 spinnerfun(spinnerValue);
-                getLoaderManager().initLoader(count, savedInstanceState, MainActivity.this);
+                    count++;
+                Log.i(LOG_TAG, "inside onselected item spinner");
+                loadercalling();
+//                getLoaderManager().initLoader(count, savedInstanceState, MainActivity.this);
+
+
+
             }
 
             @Override
