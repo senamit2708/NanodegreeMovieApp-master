@@ -20,9 +20,19 @@ public class MovieDetailsLoader extends AsyncTaskLoader<List<MovieDetails>> {
 
     @Override
     protected void onStartLoading() {
-        super.onForceLoad();
+        if (movieDetailsArrayList!=null){
+            return;
+        }
+        else {
+            super.onForceLoad();
+        }
+
     }
 
+    @Override
+    protected void onForceLoad() {
+        super.onForceLoad();
+    }
 
     @Override
     public List<MovieDetails> loadInBackground() {

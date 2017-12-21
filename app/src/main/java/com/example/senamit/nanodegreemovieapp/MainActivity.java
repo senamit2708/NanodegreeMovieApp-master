@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView.setLayoutManager(mLayoutManager);
         Log.i(LOG_TAG, "inside stepuprecycler");
 //        count++;
-        loadercalling();
+//        stringTest = MovieApiLinkCreator.favrtMovieUrl1;
+        getLoaderManager().initLoader(0, savedInstanceState, MainActivity.this);
 
 
 
@@ -70,14 +71,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private void loadercalling() {
         Log.i(LOG_TAG, "inside loader calling" +count);
 
-        getLoaderManager().initLoader(count, savedInstanceState, MainActivity.this);
-//        count++;
+        getLoaderManager().initLoader(1, savedInstanceState, MainActivity.this).forceLoad();
+        count++;
+        Log.i(LOG_TAG, "inside loadercalling");
     }
 
     @Override
     public Loader<List<MovieDetails>> onCreateLoader(int i, Bundle bundle) {
         Log.i(LOG_TAG, "the count is "+count);
         return new MovieDetailsLoader(this, stringTest);
+
     }
 
     @Override
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             movieDetailAdapter = new MovieDetailAdapter(movieDetailsList, this);
             recyclerView.setAdapter(movieDetailAdapter);
         }
-
+        Log.i(LOG_TAG, "inside on load fininshed");
 //        count++;
     }
 
@@ -125,9 +128,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 editor.putInt("positionKey", position);
                 editor.commit();
                 spinnerfun(spinnerValue);
-                    count++;
-                Log.i(LOG_TAG, "inside onselected item spinner");
-                loadercalling();
+//                    count++;
+                Log.i(LOG_TAG, "inside onselected item spinner"+stringTest);
+//                loadercalling();
 //                getLoaderManager().initLoader(count, savedInstanceState, MainActivity.this);
 
 
@@ -145,15 +148,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         switch (spinnerValue) {
             case "Popular":
                 stringTest = MovieApiLinkCreator.favrtMovieUrl1;
+                getLoaderManager().initLoader(1, savedInstanceState, MainActivity.this).forceLoad();
                 break;
             case "Top Rated":
                 stringTest = MovieApiLinkCreator.favrtMovieUrl2;
+                getLoaderManager().initLoader(2, savedInstanceState, MainActivity.this).forceLoad();
                 break;
             case "Now Playing":
                 stringTest = MovieApiLinkCreator.favrtMovieUrl3;
+                getLoaderManager().initLoader(3, savedInstanceState, MainActivity.this).forceLoad();
                 break;
             case "Upcoming":
                 stringTest = MovieApiLinkCreator.favrtMovieUrl4;
+                getLoaderManager().initLoader(4, savedInstanceState, MainActivity.this).forceLoad();
                 break;
             default:
                 break;
