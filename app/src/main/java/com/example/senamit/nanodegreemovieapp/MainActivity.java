@@ -25,6 +25,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<MovieDetails>>, MovieDetailAdapter.ListItemClickListener {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String OPERATION_QUERY_URL_EXTRA = "urlKey";
+    private static final int QUERY_URL_ID= 10;
     RecyclerView recyclerView;
     MovieDetailAdapter movieDetailAdapter;
     private static int count = 1;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private String stringTest = null;
+    private String stringTestPref=null;
+    private String KEY_URL="keyUrl";
     RecyclerView.LayoutManager mLayoutManager;
     private String PREF_FILE = "Option";
 
@@ -62,7 +66,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.i(LOG_TAG, "inside stepuprecycler");
 //        count++;
 //        stringTest = MovieApiLinkCreator.favrtMovieUrl1;
-        getLoaderManager().initLoader(0, savedInstanceState, MainActivity.this);
+//        getLoaderManager().initLoader(0, savedInstanceState, MainActivity.this);
+//        makeOperationSearchQuery(stringTest);
+//        makeOperationSearchQuery(stringTest);
 
 
 
@@ -90,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             movieDetailAdapter = new MovieDetailAdapter(movieDetailsList, this);
             recyclerView.setAdapter(movieDetailAdapter);
         }
+//        movieDetailAdapter = new MovieDetailAdapter(movieDetailsList, this);
+//            recyclerView.setAdapter(movieDetailAdapter);
         Log.i(LOG_TAG, "inside on load fininshed");
 //        count++;
     }
@@ -132,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Log.i(LOG_TAG, "inside onselected item spinner"+stringTest);
 //                loadercalling();
 //                getLoaderManager().initLoader(count, savedInstanceState, MainActivity.this);
+//                getLoaderManager().initLoader(1, savedInstanceState, MainActivity.this).forceLoad();
 
 
 
@@ -148,23 +157,92 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         switch (spinnerValue) {
             case "Popular":
                 stringTest = MovieApiLinkCreator.favrtMovieUrl1;
-                getLoaderManager().initLoader(1, savedInstanceState, MainActivity.this).forceLoad();
+//                getLoaderManager().initLoader(1, savedInstanceState, MainActivity.this).forceLoad();
+//                QUERY_URL_ID=1;
+                makeOperationSearchQuery(stringTest);
                 break;
             case "Top Rated":
                 stringTest = MovieApiLinkCreator.favrtMovieUrl2;
-                getLoaderManager().initLoader(2, savedInstanceState, MainActivity.this).forceLoad();
+                Log.i(LOG_TAG, "inside top raated");
+//                getLoaderManager().initLoader(2, savedInstanceState, MainActivity.this).forceLoad();
+//                QUERY_URL_ID=2;
+                makeOperationSearchQuery(stringTest);
                 break;
             case "Now Playing":
                 stringTest = MovieApiLinkCreator.favrtMovieUrl3;
-                getLoaderManager().initLoader(3, savedInstanceState, MainActivity.this).forceLoad();
+                Log.i(LOG_TAG, "inside now playing");
+//                getLoaderManager().initLoader(3, savedInstanceState, MainActivity.this).forceLoad();
+//                QUERY_URL_ID=3;
+                makeOperationSearchQuery(stringTest);
                 break;
             case "Upcoming":
                 stringTest = MovieApiLinkCreator.favrtMovieUrl4;
-                getLoaderManager().initLoader(4, savedInstanceState, MainActivity.this).forceLoad();
+//                getLoaderManager().initLoader(4, savedInstanceState, MainActivity.this).forceLoad();
+//                QUERY_URL_ID=4;
+                makeOperationSearchQuery(stringTest);
                 break;
             default:
                 break;
         }
     }
 
+//    private void makeOperationSearchQuery(String stringTest, int QUERY_URL_ID) {
+//        getLoaderManager().initLoader(QUERY_URL_ID, savedInstanceState, MainActivity.this).forceLoad();
+//    }
+
+    private void makeOperationSearchQuery(String url){
+
+        Bundle queryBundle = new Bundle();
+        queryBundle.putString(OPERATION_QUERY_URL_EXTRA, url);
+        LoaderManager loaderManager = getLoaderManager();
+        Loader<String> loader = loaderManager.getLoader(QUERY_URL_ID);
+        if (loader==null){
+            Log.i(LOG_TAG, "inside the null loader, so init loader is called here");
+            loaderManager.initLoader(QUERY_URL_ID, queryBundle, this);
+        }else
+        {
+            Log.i(LOG_TAG, "inside not null loader, so restart loader is called here");
+
+            loaderManager.restartLoader(QUERY_URL_ID, queryBundle, this);
+        }
+
+//                loaderManager.initLoader(QUERY_URL_ID, savedInstanceState, this);
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_URL, stringTest);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        savedInstanceState.getString(KEY_URL);
+        makeOperationSearchQuery(stringTest);
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.create_new:
+                bookmarkMovie();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    private void bookmarkMovie() {
+
+        Intent intent = new Intent(MainActivity.this, MovieBookmarkedList.class);
+        startActivity(intent);
+
+    }
 }

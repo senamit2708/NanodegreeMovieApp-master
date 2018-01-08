@@ -109,8 +109,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="25dp"
         android:layout_marginStart="40dp"
         android:text="Vote Average"
         android:textColor="@android:color/black"
@@ -132,5 +130,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/voteAverage"
         app:layout_constraintTop_toBottomOf="@+id/txt_movieReleaseDate" />
+
+    <Button
+        android:id="@+id/btn_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="15dp"
+        android:text="BookMark"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView3" />
 
 </android.support.constraint.ConstraintLayout>
