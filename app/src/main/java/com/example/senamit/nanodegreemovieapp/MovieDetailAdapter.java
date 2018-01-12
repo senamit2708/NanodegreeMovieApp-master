@@ -34,8 +34,8 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.movieName.setText(movieDetailsList.get(position).getMovieName());
-        holder.movieReleaseDate.setText(movieDetailsList.get(position).getMovieReleaseDate());
+//        holder.movieName.setText(movieDetailsList.get(position).getMovieName());
+//        holder.movieReleaseDate.setText(movieDetailsList.get(position).getMovieReleaseDate());
         Picasso.with(context).load(movieDetailsList.get(position).getMovieImageUrl()).into(holder.movieImage);
     }
 
@@ -45,14 +45,14 @@ public class MovieDetailAdapter extends RecyclerView.Adapter<MovieDetailAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView movieName;
-        TextView movieReleaseDate;
+//        TextView movieName;
+//        TextView movieReleaseDate;
         ImageView movieImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            movieName = (TextView) itemView.findViewById(R.id.txt_movie_name);
-            movieReleaseDate = (TextView) itemView.findViewById(R.id.txt_movieReleaseDate);
+//            movieName = (TextView) itemView.findViewById(R.id.txt_movie_name);
+//            movieReleaseDate = (TextView) itemView.findViewById(R.id.txt_movieReleaseDate);
             movieImage = (ImageView) itemView.findViewById(R.id.img_movieImage);
             context = itemView.getContext();
             itemView.setOnClickListener(this);

@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         Log.i(LOG_TAG, "inside stepuprecycler");
+        makeOperationSearchQuery(stringTest);
 //        count++;
 //        stringTest = MovieApiLinkCreator.favrtMovieUrl1;
 //        getLoaderManager().initLoader(0, savedInstanceState, MainActivity.this);
@@ -222,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         savedInstanceState.getString(KEY_URL);
-        makeOperationSearchQuery(stringTest);
+//        makeOperationSearchQuery(stringTest);
 
     }
 

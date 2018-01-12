@@ -88,7 +88,9 @@ public class MovieDetailDescription extends AppCompatActivity {
 //                db = movieDBHelper.getWritableDatabase();
                 ContentValues contentValues = new ContentValues();
                 String movieName = txtMovieName.getText().toString();
+
                 contentValues.put(WishListMovie.COLUMN_MOVIE_NAME, movieName);
+
                 contentValues.put(WishListMovie.COLUMN_MOVIE_RELEASE_DATE,"1992");
 //                long rowId = db.insert(WishListMovie.TABLE_NAME,null, contentValues );
                Uri uriId= getContentResolver().insert(WishListMovie.CONTENT_URI, contentValues);

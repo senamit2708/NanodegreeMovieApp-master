@@ -56,6 +56,7 @@ public class MovieContenetProvider extends ContentProvider {
         Cursor retCursor;
         switch (match){
             case MOVIE_LIST:
+                Log.i(LOG_TAG, "inside table query method full");
                 retCursor = db.query(WishListMovie.TABLE_NAME,
                         projection,
                         selection,
@@ -96,6 +97,7 @@ public class MovieContenetProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
 
+       Log.i(LOG_TAG,"inside insert method");
         db = movieDBHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
         long id;
@@ -104,10 +106,12 @@ public class MovieContenetProvider extends ContentProvider {
             case MOVIE_LIST:
               id =  db.insert(WishListMovie.TABLE_NAME,null,contentValues);
               if (id>0){
+                  Log.i(LOG_TAG, "inside the insertion of new data of table");
                 retUri = ContentUris.withAppendedId(WishListMovie.CONTENT_URI, id);
               }
                 else{
-                    throw  new android.database.SQLException("unable to insert data "+uri);
+                  Log.i(LOG_TAG, "inside the exception block of insertion of new data");
+//                    throw  new android.database.SQLException("unable to insert data "+uri);
                   }
 
                 break;
