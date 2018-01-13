@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDetailsLoader extends AsyncTaskLoader<List<MovieDetails>> {
-    private static final String LOG_TAG= MovieDetailsLoader.class.getName();
+    private static final String LOG_TAG = MovieDetailsLoader.class.getName();
     private String stringUrl;
     ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<>();
     List<MovieDetails> resultFromHTTP;
@@ -23,16 +23,9 @@ public class MovieDetailsLoader extends AsyncTaskLoader<List<MovieDetails>> {
 
     @Override
     protected void onStartLoading() {
-//        if (movieDetailsArrayList!=null){
-//            Log.i(LOG_TAG,"inside on start loading if statement");
-//            return;
-//        }
-        if (resultFromHTTP!=null){
-            Log.i(LOG_TAG,"inside on start loading if statement");
+        if (resultFromHTTP != null) {
             deliverResult(resultFromHTTP);
-        }
-        else {
-            Log.i(LOG_TAG, "inside on start loading else statement");
+        } else {
             super.onForceLoad();
         }
 
@@ -40,13 +33,12 @@ public class MovieDetailsLoader extends AsyncTaskLoader<List<MovieDetails>> {
 
     @Override
     protected void onForceLoad() {
-        Log.i(LOG_TAG, "inidse on force load");
         super.onForceLoad();
     }
 
     @Override
     public List<MovieDetails> loadInBackground() {
-        if (stringUrl!=null&&"".equals(stringUrl)){
+        if (stringUrl != null && "".equals(stringUrl)) {
 
             return null;
         }
@@ -63,7 +55,7 @@ public class MovieDetailsLoader extends AsyncTaskLoader<List<MovieDetails>> {
 
     @Override
     public void deliverResult(List<MovieDetails> data) {
-        resultFromHTTP= data;
+        resultFromHTTP = data;
         super.deliverResult(data);
     }
 }

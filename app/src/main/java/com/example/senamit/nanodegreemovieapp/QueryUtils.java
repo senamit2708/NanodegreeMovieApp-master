@@ -1,6 +1,5 @@
 package com.example.senamit.nanodegreemovieapp;
 
-
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -106,15 +105,15 @@ public class QueryUtils {
             StringBuilder imagePath = new StringBuilder();
             imagePath.append("http://image.tmdb.org/t/p/w500");
             imagePath.append(movieImage);
-            Log.i(LOG_TAG, "movie id is "+movieId);
-            movieDetailsArrayList.add(new MovieDetails(movieName, releaseDate, movieRating, movieOverView, imagePath.toString(),movieId));
+            Log.i(LOG_TAG, "movie id is " + movieId);
+            movieDetailsArrayList.add(new MovieDetails(movieName, releaseDate, movieRating, movieOverView, imagePath.toString(), movieId));
         }
         return movieDetailsArrayList;
     }
 
     public static ArrayList<MovieDetails> fetchMovieRequest(String stringUrl) throws IOException, JSONException {
         URL url = createUrl(stringUrl);
-        Log.i(LOG_TAG, "the url is "+url);
+        Log.i(LOG_TAG, "the url is " + url);
         String jsonResponsee = null;
         jsonResponsee = makeHttpRequest(url);
         movieDetailsArrayList = extractFeaturesFromJSON(jsonResponsee);
@@ -122,12 +121,12 @@ public class QueryUtils {
         return movieDetailsArrayList;
     }
 
-    public static ArrayList<MovieDetails>fetchMovieReview(String stringUrl) throws IOException, JSONException {
+    public static ArrayList<MovieDetails> fetchMovieReview(String stringUrl) throws IOException, JSONException {
         URL url = createUrl(stringUrl);
-        Log.i(LOG_TAG, "the url is "+url);
+        Log.i(LOG_TAG, "the url is " + url);
         String jsonResponsee = null;
         jsonResponsee = makeHttpRequest(url);
-        movieDetailsArrayList=extractFeaturesJSONForReview(jsonResponsee);
+        movieDetailsArrayList = extractFeaturesJSONForReview(jsonResponsee);
         Log.i(LOG_TAG, "inside the fetchMovieReview to retrive data");
         return movieDetailsArrayList;
 
@@ -137,20 +136,17 @@ public class QueryUtils {
         if (TextUtils.isEmpty(jsonResponse)) {
             return null;
         }
-        String movieReview =null;
+        String movieReview = null;
         ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<MovieDetails>();
         JSONObject baseJsonObject = new JSONObject(jsonResponse);
         JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
         for (int i = 0; i < resultJsonArray.length(); i++) {
             JSONObject resultJsonObject = resultJsonArray.optJSONObject(i);
 
-            movieReview=resultJsonObject.optString("content");
-            Log.i(LOG_TAG, "inside extractFeaturesJSONForReview method");
+            movieReview = resultJsonObject.optString("content");
             movieDetailsArrayList.add(new MovieDetails(movieReview));
         }
         return movieDetailsArrayList;
-
     }
-
 
 }

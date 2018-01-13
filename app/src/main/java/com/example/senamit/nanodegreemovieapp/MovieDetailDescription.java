@@ -40,14 +40,12 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     Target target;
     Button btnBookmark;
     private static final String LOG_TAG = MovieDetailDescription.class.getSimpleName();
-    SQLiteDatabase db;
-    Cursor cursor;
     MovieDBHelper movieDBHelper;
-    Bitmap bitmapTest;
     String movieId;
-    String stringUrl="https://api.themoviedb.org/3/movie/354912/reviews?api_key=f6fc8d8e4043fefdfe43c153dd429479&language=en-US";
+    String stringUrl = null;
     TextView txtMovieReview;
     Button btnReview;
+    private int LOADERID=36;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -65,7 +63,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         TextView txtMovieReleaseDate = findViewById(R.id.txt_movieReleaseDate);
         TextView txtMovieDescr = findViewById(R.id.txt_movie_descr);
         TextView txtMovieRating = findViewById(R.id.movieRating);
-         txtMovieReview = findViewById(R.id.txt_movie_review);
+        txtMovieReview = findViewById(R.id.txt_movie_review);
         btnBookmark = findViewById(R.id.btn_bookmark);
         btnReview = findViewById(R.id.btnReview);
         final ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
@@ -78,19 +76,10 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         txtMovieRating.setText(movieDetails.getMovieRating());
         movieId = movieDetails.getMovieId();
 
-
-
-
-
         target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 constraintLayout.setBackground(new BitmapDrawable(getResources(), bitmap));
-
-//                File file = new File(Environment.getExternalStorageDirectory().getPath() + "/" + "amitt");
-
-                bitmapTest=bitmap;
-
             }
 
             @Override
@@ -104,7 +93,6 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         };
         Picasso.with(this).load(movieDetails.getMovieImageUrl()).into(target);
 
-
         btnBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,59 +101,49 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
                 String movieName = txtMovieName.getText().toString();
 
                 contentValues.put(WishListMovie.COLUMN_MOVIE_NAME, movieName);
-
-
-                contentValues.put(WishListMovie.COLUMN_MOVIE_RELEASE_DATE,"1992");
-               Uri uriId= getContentResolver().insert(WishListMovie.CONTENT_URI, contentValues);
-                if (uriId !=null){
+                contentValues.put(WishListMovie.COLUMN_MOVIE_RELEASE_DATE, "1992");
+                Uri uriId = getContentResolver().insert(WishListMovie.CONTENT_URI, contentValues);
+                if (uriId != null) {
                     Toast.makeText(MovieDetailDescription.this, "successful", Toast.LENGTH_SHORT).show();
-                    Log.i(LOG_TAG,"inside the database table");
-                }
-                else{
-
+                } else {
                     Toast.makeText(MovieDetailDescription.this, "unsucessful", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
 
         btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stringUrl =Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("reviews").appendQueryParameter(MovieApiLinkCreator.APIKEY,MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE,MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
-                Log.i(LOG_TAG, "the movieId is "+movieId);
-                Log.i(LOG_TAG, "the link of review is "+stringUrl);
+                stringUrl = Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("reviews").appendQueryParameter(MovieApiLinkCreator.APIKEY, MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE, MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
                 loaderMangerReview();
             }
 
             private void loaderMangerReview() {
-                getLoaderManager().initLoader(36, savedInstanceState, MovieDetailDescription.this);
+                getLoaderManager().initLoader(LOADERID, savedInstanceState, MovieDetailDescription.this);
             }
         });
-
     }
-
 
     @Override
     public Loader<List<MovieDetails>> onCreateLoader(int id, Bundle args) {
-        Log.i(LOG_TAG, "inside oncreateloader of init loader");
         return new MovieReviewVideoLoader(this, stringUrl);
     }
 
     @Override
     public void onLoadFinished(Loader<List<MovieDetails>> loader, List<MovieDetails> data) {
-        Log.i(LOG_TAG, "inside onLoadfinished method");
-        int count = data.size();
-        for (int i=0;i<count;i++){
-            txtMovieReview.setText(data.get(i).getMovieReview());
+
+        if (data != null) {
+            int count = data.size();
+            for (int i = 0; i < count; i++) {
+                txtMovieReview.setText(data.get(i).getMovieReview());
+            }
+        } else {
+            txtMovieReview.setText("No Review Available");
         }
-      txtMovieReview.setText(data.get(0).getMovieReview());
     }
 
     @Override
     public void onLoaderReset(Loader<List<MovieDetails>> loader) {
-
         txtMovieReview.setText(null);
     }
 }

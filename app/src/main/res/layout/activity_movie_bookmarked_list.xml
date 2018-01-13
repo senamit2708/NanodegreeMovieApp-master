@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.senamit.nanodegreemovieapp.MovieBookmarkedList"
     android:background="@android:color/darker_gray"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.senamit.nanodegreemovieapp.MovieBookmarkedList">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -22,9 +22,10 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewBookmarked"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerViewBookmarked"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

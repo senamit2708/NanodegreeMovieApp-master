@@ -28,7 +28,3 @@ public class MovieApiLinkCreator {
     public static String favrtMovieUrl4 = Uri.parse(UPCOMING_JSON_DATA).buildUpon().appendQueryParameter(APIKEY, KEY).build().toString();
 
 }
-
-//https://api.themoviedb.org/3/movie/323368?api_key=f6fc8d8e4043fefdfe43c153dd429479&language=en-US
-//
-//        https://api.themoviedb.org/3/movie/354912/videos?api_key=f6fc8d8e4043fefdfe43c153dd429479&language=en-US

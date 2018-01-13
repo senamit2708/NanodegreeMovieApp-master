@@ -15,25 +15,7 @@ public class MovieDetails implements Parcelable {
     private Bitmap bitmap;
     private String movieId;
     private String movieReview;
-    private String movieTrailer;
     private String movieVideo;
-
-
-
-
-
-
-//
-//    public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, Bitmap bitmap) {
-//        this.movieName = movieName;
-//        this.movieReleaseDate = movieReleaseDate;
-//        this.movieRating = movieRating;
-//        this.movieOverView = movieOverView;
-//        this.bitmap = bitmap;
-//    }
-
-//    public MovieDetails() {
-//    }
 
 
     public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, String movieImageUrl) {
@@ -69,7 +51,7 @@ public class MovieDetails implements Parcelable {
         movieOverView = in.readString();
         movieImageUrl = in.readString();
         bitmap = in.readParcelable(Bitmap.class.getClassLoader());
-        movieId=in.readString();
+        movieId = in.readString();
     }
 
     public static final Creator<MovieDetails> CREATOR = new Creator<MovieDetails>() {
@@ -115,10 +97,6 @@ public class MovieDetails implements Parcelable {
 
     public String getMovieReview() {
         return movieReview;
-    }
-
-    public String getMovieTrailer() {
-        return movieTrailer;
     }
 
     @Override

@@ -11,9 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by senamit on 13/1/18.
- */
 
 public class MovieReviewVideoLoader extends AsyncTaskLoader<List<MovieDetails>> {
 
@@ -33,23 +30,13 @@ public class MovieReviewVideoLoader extends AsyncTaskLoader<List<MovieDetails>> 
 
     @Override
     protected void onStartLoading() {
-//        if(movieDetailsArrayList!=null){
-//            super.onStartLoading();
-//        }
-//        else {
-//            forceLoad();
-//        }
-        Log.i(LOG_TAG, "inside force load method");
         forceLoad();
-
     }
 
     @Override
     public List<MovieDetails> loadInBackground() {
 
-
         try {
-            Log.i(LOG_TAG, "inside loadinbackground method");
             movieDetailsArrayList = QueryUtils.fetchMovieReview(stringUrl);
         } catch (IOException e) {
             e.printStackTrace();
