@@ -47,9 +47,10 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     String movieId;
     String stringUrl="https://api.themoviedb.org/3/movie/354912/reviews?api_key=f6fc8d8e4043fefdfe43c153dd429479&language=en-US";
     TextView txtMovieReview;
+    Button btnReview;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail_description);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -66,6 +67,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         TextView txtMovieRating = findViewById(R.id.movieRating);
          txtMovieReview = findViewById(R.id.txt_movie_review);
         btnBookmark = findViewById(R.id.btn_bookmark);
+        btnReview = findViewById(R.id.btnReview);
         final ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
         Intent intent = getIntent();
         bundle = intent.getExtras();
@@ -77,10 +79,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         movieId = movieDetails.getMovieId();
 
 
-        stringUrl =Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("reviews").appendQueryParameter(MovieApiLinkCreator.APIKEY,MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE,MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
-        Log.i(LOG_TAG, "the movieId is "+movieId);
-        Log.i(LOG_TAG, "the link of review is "+stringUrl);
-       getLoaderManager().initLoader(35, savedInstanceState, this);
+
 
 
         target = new Target() {
@@ -131,6 +130,19 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         });
 
 
+        btnReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stringUrl =Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("reviews").appendQueryParameter(MovieApiLinkCreator.APIKEY,MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE,MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
+                Log.i(LOG_TAG, "the movieId is "+movieId);
+                Log.i(LOG_TAG, "the link of review is "+stringUrl);
+                loaderMangerReview();
+            }
+
+            private void loaderMangerReview() {
+                getLoaderManager().initLoader(36, savedInstanceState, MovieDetailDescription.this);
+            }
+        });
 
     }
 

@@ -15,21 +15,26 @@ public class MovieDetails implements Parcelable {
     private Bitmap bitmap;
     private String movieId;
     private String movieReview;
+    private String movieTrailer;
+    private String movieVideo;
 
-    public MovieDetails(String movieReview) {
-        this.movieReview = movieReview;
-    }
 
-    public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, Bitmap bitmap) {
-        this.movieName = movieName;
-        this.movieReleaseDate = movieReleaseDate;
-        this.movieRating = movieRating;
-        this.movieOverView = movieOverView;
-        this.bitmap = bitmap;
-    }
 
-    public MovieDetails() {
-    }
+
+
+
+//
+//    public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, Bitmap bitmap) {
+//        this.movieName = movieName;
+//        this.movieReleaseDate = movieReleaseDate;
+//        this.movieRating = movieRating;
+//        this.movieOverView = movieOverView;
+//        this.bitmap = bitmap;
+//    }
+
+//    public MovieDetails() {
+//    }
+
 
     public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, String movieImageUrl) {
         this.movieName = movieName;
@@ -37,6 +42,15 @@ public class MovieDetails implements Parcelable {
         this.movieRating = movieRating;
         this.movieOverView = movieOverView;
         this.movieImageUrl = movieImageUrl;
+    }
+
+    public MovieDetails(String movieReview) {
+        this.movieReview = movieReview;
+    }
+
+    public MovieDetails(String movieReview, String movieVideo) {
+        this.movieReview = movieReview;
+        this.movieVideo = movieVideo;
     }
 
     public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, String movieImageUrl, String movieId) {
@@ -101,6 +115,10 @@ public class MovieDetails implements Parcelable {
 
     public String getMovieReview() {
         return movieReview;
+    }
+
+    public String getMovieTrailer() {
+        return movieTrailer;
     }
 
     @Override

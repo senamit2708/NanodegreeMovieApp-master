@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.senamit.nanodegreemovieapp.Data.MovieContract;
 import com.example.senamit.nanodegreemovieapp.Data.MovieContract.*;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by senamit on 11/1/18.
@@ -53,6 +54,7 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
 
             holder.txtMovieName.setText(movieName);
             holder.txtMovieReleaseDate.setText(movieReleaseDate);
+
 //        }
     }
 

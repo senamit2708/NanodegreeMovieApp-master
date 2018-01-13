@@ -183,6 +183,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 //                QUERY_URL_ID=4;
                 makeOperationSearchQuery(stringTest);
                 break;
+            case "BookMarked":
+                Log.i(LOG_TAG, "inside the bookmarked");
+                Intent bookmarkedIntent = new Intent(this, MovieBookmarkedList.class);
+                startActivity(bookmarkedIntent);
+                break;
             default:
                 break;
         }
