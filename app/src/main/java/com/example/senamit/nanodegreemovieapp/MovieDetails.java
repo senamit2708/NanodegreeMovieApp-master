@@ -13,7 +13,12 @@ public class MovieDetails implements Parcelable {
     private String movieOverView;
     private String movieImageUrl;
     private Bitmap bitmap;
+    private String movieId;
+    private String movieReview;
 
+    public MovieDetails(String movieReview) {
+        this.movieReview = movieReview;
+    }
 
     public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, Bitmap bitmap) {
         this.movieName = movieName;
@@ -34,6 +39,15 @@ public class MovieDetails implements Parcelable {
         this.movieImageUrl = movieImageUrl;
     }
 
+    public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, String movieImageUrl, String movieId) {
+        this.movieName = movieName;
+        this.movieReleaseDate = movieReleaseDate;
+        this.movieRating = movieRating;
+        this.movieOverView = movieOverView;
+        this.movieImageUrl = movieImageUrl;
+        this.movieId = movieId;
+    }
+
     protected MovieDetails(Parcel in) {
         movieName = in.readString();
         movieReleaseDate = in.readString();
@@ -41,6 +55,7 @@ public class MovieDetails implements Parcelable {
         movieOverView = in.readString();
         movieImageUrl = in.readString();
         bitmap = in.readParcelable(Bitmap.class.getClassLoader());
+        movieId=in.readString();
     }
 
     public static final Creator<MovieDetails> CREATOR = new Creator<MovieDetails>() {
@@ -79,6 +94,15 @@ public class MovieDetails implements Parcelable {
         return movieImageUrl;
     }
 
+
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public String getMovieReview() {
+        return movieReview;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -92,6 +116,7 @@ public class MovieDetails implements Parcelable {
         parcel.writeString(movieOverView);
         parcel.writeString(movieImageUrl);
         parcel.writeParcelable(bitmap, i);
+        parcel.writeString(movieId);
     }
 
 }

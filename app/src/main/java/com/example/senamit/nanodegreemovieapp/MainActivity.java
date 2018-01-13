@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         } else {
             setupRecyclerView();
         }
+        setupRecyclerView();
     }
 
     private void setupRecyclerView() {

@@ -91,11 +91,13 @@ public class QueryUtils {
         String releaseDate = null;
         String movieRating = null;
         String movieOverView = null;
+        String movieId = null;
 
         JSONObject baseJsonObject = new JSONObject(jsonResponse);
         JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
         for (int i = 0; i < resultJsonArray.length(); i++) {
             JSONObject resultJsonObject = resultJsonArray.optJSONObject(i);
+            movieId = resultJsonObject.optString("id");
             movieName = resultJsonObject.optString("title");
             releaseDate = resultJsonObject.optString("release_date");
             movieRating = resultJsonObject.optString("vote_average");
@@ -104,8 +106,8 @@ public class QueryUtils {
             StringBuilder imagePath = new StringBuilder();
             imagePath.append("http://image.tmdb.org/t/p/w500");
             imagePath.append(movieImage);
-            Log.i(LOG_TAG, "movie name is "+movieName);
-            movieDetailsArrayList.add(new MovieDetails(movieName, releaseDate, movieRating, movieOverView, imagePath.toString()));
+            Log.i(LOG_TAG, "movie id is "+movieId);
+            movieDetailsArrayList.add(new MovieDetails(movieName, releaseDate, movieRating, movieOverView, imagePath.toString(),movieId));
         }
         return movieDetailsArrayList;
     }
@@ -119,4 +121,36 @@ public class QueryUtils {
         Log.i(LOG_TAG, "inside the queryutils to retrive data");
         return movieDetailsArrayList;
     }
+
+    public static ArrayList<MovieDetails>fetchMovieReview(String stringUrl) throws IOException, JSONException {
+        URL url = createUrl(stringUrl);
+        Log.i(LOG_TAG, "the url is "+url);
+        String jsonResponsee = null;
+        jsonResponsee = makeHttpRequest(url);
+        movieDetailsArrayList=extractFeaturesJSONForReview(jsonResponsee);
+        Log.i(LOG_TAG, "inside the fetchMovieReview to retrive data");
+        return movieDetailsArrayList;
+
+    }
+
+    public static ArrayList<MovieDetails> extractFeaturesJSONForReview(String jsonResponse) throws JSONException {
+        if (TextUtils.isEmpty(jsonResponse)) {
+            return null;
+        }
+        String movieReview =null;
+        ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<MovieDetails>();
+        JSONObject baseJsonObject = new JSONObject(jsonResponse);
+        JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
+        for (int i = 0; i < resultJsonArray.length(); i++) {
+            JSONObject resultJsonObject = resultJsonArray.optJSONObject(i);
+
+            movieReview=resultJsonObject.optString("content");
+            Log.i(LOG_TAG, "inside extractFeaturesJSONForReview method");
+            movieDetailsArrayList.add(new MovieDetails(movieReview));
+        }
+        return movieDetailsArrayList;
+
+    }
+
+
 }
