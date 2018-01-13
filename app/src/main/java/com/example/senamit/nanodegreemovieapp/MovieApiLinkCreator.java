@@ -15,7 +15,7 @@ public class MovieApiLinkCreator {
     private static String TOP_RATED_JSON_DATA = "https://api.themoviedb.org/3/movie/top_rated?page=1&language=en-US";
     public static String MOVIE_DETAILS_JSON_DATA =" https://api.themoviedb.org/3/movie/";
     public static String APIKEY = "api_key";
-    public static String KEY = "f6fc8d8e4043fefdfe43c153dd429479";
+    public static String KEY = "";
     public static String LANGUAGE="language";
     public static String LANGUAGEVALUE="en-US";
 
