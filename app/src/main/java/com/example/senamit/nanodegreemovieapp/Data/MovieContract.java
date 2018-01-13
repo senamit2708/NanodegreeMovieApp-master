@@ -26,7 +26,7 @@ public class MovieContract {
         public static final String TABLE_NAME= "MovieList";
         public static final String COLUMN_MOVIE_NAME="MovieName";
         public static final String COLUMN_MOVIE_RELEASE_DATE="MovieReleaseDate";
-        public static final String COLUMN_MOVIE_THUMBNAIL="MovieThumbNail";
+
 
     }
 

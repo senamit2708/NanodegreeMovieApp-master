@@ -2,16 +2,20 @@ package com.example.senamit.nanodegreemovieapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.senamit.nanodegreemovieapp.Data.MovieContract;
 import com.example.senamit.nanodegreemovieapp.Data.MovieContract.*;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 /**
  * Created by senamit on 11/1/18.
@@ -55,6 +59,8 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
             holder.txtMovieName.setText(movieName);
             holder.txtMovieReleaseDate.setText(movieReleaseDate);
 
+//        Uri uri = Uri.fromFile(new File(images.get(position).getDataPath()));
+
 //        }
     }
 
@@ -84,12 +90,14 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
 
         TextView txtMovieName;
         TextView txtMovieReleaseDate;
+        ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             txtMovieName =  itemView.findViewById(R.id.txt_movie_name);
             txtMovieReleaseDate = itemView.findViewById(R.id.txt_movieReleaseDate);
+            imageView=itemView.findViewById(R.id.imageview);
         }
     }
 }

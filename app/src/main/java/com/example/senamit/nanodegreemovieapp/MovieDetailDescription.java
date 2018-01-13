@@ -113,7 +113,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
                 String movieName = txtMovieName.getText().toString();
 
                 contentValues.put(WishListMovie.COLUMN_MOVIE_NAME, movieName);
-                contentValues.put(WishListMovie.COLUMN_MOVIE_THUMBNAIL, String.valueOf(bitmapTest));
+
 
                 contentValues.put(WishListMovie.COLUMN_MOVIE_RELEASE_DATE,"1992");
                Uri uriId= getContentResolver().insert(WishListMovie.CONTENT_URI, contentValues);
@@ -166,5 +166,6 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     @Override
     public void onLoaderReset(Loader<List<MovieDetails>> loader) {
 
+        txtMovieReview.setText(null);
     }
 }
