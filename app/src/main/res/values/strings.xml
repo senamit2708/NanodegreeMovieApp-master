@@ -16,4 +16,5 @@
     <string name="internetMessage">No Internet Available</string>
     <string name="alertTitle">Alert</string>
     <string name="alertButton">Ok</string>
+    <string name="youtubelink">Movie Trailer</string>
 </resources>

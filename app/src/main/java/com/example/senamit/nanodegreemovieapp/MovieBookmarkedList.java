@@ -36,7 +36,6 @@ public class MovieBookmarkedList extends AppCompatActivity implements LoaderMana
         mAdapter = new CustomCursorBookmarkMovieAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         getLoaderManager().initLoader(LOADERID, null, this);
-
     }
 
     @Override
@@ -57,13 +56,11 @@ public class MovieBookmarkedList extends AppCompatActivity implements LoaderMana
             @Override
             public Cursor loadInBackground() {
                 try {
-
                     return getContentResolver().query(WishListMovie.CONTENT_URI,
                             null,
                             null,
                             null,
                             null);
-
 
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "failed to load data");

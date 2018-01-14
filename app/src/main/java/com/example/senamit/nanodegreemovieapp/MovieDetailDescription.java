@@ -4,14 +4,12 @@ import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.Loader;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,15 +19,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.senamit.nanodegreemovieapp.Data.MovieContract;
 import com.example.senamit.nanodegreemovieapp.Data.MovieDBHelper;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import com.example.senamit.nanodegreemovieapp.Data.MovieDBHelper.*;
 import com.example.senamit.nanodegreemovieapp.Data.MovieContract.*;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +33,6 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     private Bundle bundle;
     private MovieDetails movieDetails;
     Target target;
-    Button btnBookmark;
     private static final String LOG_TAG = MovieDetailDescription.class.getSimpleName();
     MovieDBHelper movieDBHelper;
     String movieId;
@@ -47,9 +41,11 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     TextView txtMovieVideo;
     Button btnReview;
     Button btnVideo;
-    private int LOADERIDREVIEW=36;
-    private int LOADERIDVIDEO=46;
-    private int loaderId=0;
+    FloatingActionButton btnFloatingSave;
+    private int LOADERIDREVIEW = 36;
+    private int LOADERIDVIDEO = 46;
+    private int loaderId = 0;
+    private String youtubeKey = null;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -69,9 +65,9 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         TextView txtMovieRating = findViewById(R.id.movieRating);
         txtMovieReview = findViewById(R.id.txt_movie_review);
         txtMovieVideo = findViewById(R.id.txtVideo);
-        btnBookmark = findViewById(R.id.btn_bookmark);
         btnReview = findViewById(R.id.btnReview);
-        btnVideo=findViewById(R.id.btnVideo);
+        btnVideo = findViewById(R.id.btnVideo);
+        btnFloatingSave = (FloatingActionButton) findViewById(R.id.floatingbtnSave);
         final ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
         Intent intent = getIntent();
         bundle = intent.getExtras();
@@ -99,10 +95,10 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         };
         Picasso.with(this).load(movieDetails.getMovieImageUrl()).into(target);
 
-        btnBookmark.setOnClickListener(new View.OnClickListener() {
+
+        btnFloatingSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ContentValues contentValues = new ContentValues();
                 String movieName = txtMovieName.getText().toString();
 
@@ -133,7 +129,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
             @Override
             public void onClick(View v) {
                 stringUrl = Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("videos").appendQueryParameter(MovieApiLinkCreator.APIKEY, MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE, MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
-                Log.i(LOG_TAG, "the string url of videos is  "+stringUrl);
+                Log.i(LOG_TAG, "the string url of videos is  " + stringUrl);
                 loaderManagerMovieVideo();
             }
 
@@ -147,7 +143,6 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     @Override
     public Loader<List<MovieDetails>> onCreateLoader(int id, Bundle args) {
         loaderId = id;
-        Log.i(LOG_TAG,"the loader id is  "+loaderId);
         return new MovieReviewVideoLoader(this, stringUrl, id);
     }
 
@@ -155,24 +150,29 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     public void onLoadFinished(Loader<List<MovieDetails>> loader, List<MovieDetails> data) {
 
         if (data != null) {
-            if (loaderId==LOADERIDREVIEW){
-                int count = data.size();
-                for (int i = 0; i < count; i++) {
-                    txtMovieReview.setText(data.get(i).getMovieReview());
-                }
+
+            if (loaderId == LOADERIDVIDEO) {
+//                txtMovieVideo.setText(data.get(0).getMovieReview());
+                youtubeKey = data.get(0).getMovieVideo();
             }
-            if (loaderId==LOADERIDVIDEO){
-                txtMovieVideo.setText(data.get(0).getMovieReview());
+            if (loaderId == LOADERIDREVIEW) {
+                int count = data.size();
+                txtMovieReview.setText(data.get(0).getMovieReview());
             }
 
-        }else {
-            txtMovieReview.setText(null);
-            txtMovieVideo.setText(null);
+        } else {
+            if (loaderId == LOADERIDREVIEW) {
+                txtMovieReview.setText(null);
+            }
+            if (loaderId == LOADERIDVIDEO) {
+//                txtMovieVideo.setText(null);
+            }
+
         }
     }
 
     @Override
     public void onLoaderReset(Loader<List<MovieDetails>> loader) {
-        txtMovieReview.setText(null);
+        Log.i(LOG_TAG, "inside reset loader");
     }
 }

@@ -18,6 +18,8 @@ public class MovieReviewVideoLoader extends AsyncTaskLoader<List<MovieDetails>> 
     private String stringUrl;
     ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<>();
     int id=0;
+    private int LOADERIDREVIEW = 36;
+    private int LOADERIDVIDEO = 46;
 
 
     public MovieReviewVideoLoader(Context context) {
@@ -39,11 +41,15 @@ public class MovieReviewVideoLoader extends AsyncTaskLoader<List<MovieDetails>> 
     public List<MovieDetails> loadInBackground() {
 
         try {
-            if (id==36){
+
+            if (id==LOADERIDVIDEO){
+                movieDetailsArrayList = QueryUtils.fetchMovieVideo(stringUrl);
+            }
+           else if (id==LOADERIDREVIEW){
                 movieDetailsArrayList = QueryUtils.fetchMovieReview(stringUrl);
             }
-            if (id==46){
-                movieDetailsArrayList = QueryUtils.fetchMovieVideo(stringUrl);
+            else{
+               return null;
             }
 
         } catch (IOException e) {

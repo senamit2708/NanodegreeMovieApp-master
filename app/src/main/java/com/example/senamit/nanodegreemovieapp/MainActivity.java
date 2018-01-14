@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private String KEY_URL = "keyUrl";
     RecyclerView.LayoutManager mLayoutManager;
     private String PREF_FILE = "Option";
-    private  int recyclerNumColumn=0;
+    private int recyclerNumColumn = 0;
 
 
     @Override
@@ -61,25 +61,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private void setupRecyclerView() {
         recyclerView = findViewById(R.id.recycler);
-        recyclerNumColumn=getResources().getInteger(R.integer.recycler_num_columns);
-        Log.i(LOG_TAG, "the recyclernumcolumn is "+recyclerNumColumn);
+        recyclerNumColumn = getResources().getInteger(R.integer.recycler_num_columns);
+        Log.i(LOG_TAG, "the recyclernumcolumn is " + recyclerNumColumn);
         mLayoutManager = new GridLayoutManager(this, recyclerNumColumn);
         recyclerView.setLayoutManager(mLayoutManager);
         makeOperationSearchQuery(stringTest);
-
     }
 
     @Override
     public Loader<List<MovieDetails>> onCreateLoader(int i, Bundle bundle) {
-        Log.i(LOG_TAG, "the count is " + count);
         return new MovieDetailsLoader(this, stringTest);
-
     }
 
     @Override
     public void onLoadFinished(Loader<List<MovieDetails>> loader, List<MovieDetails> movieDetailsList) {
-        if (movieDetailsList != null  ) {
-            Log.i(LOG_TAG, "inside on Loadfinished");
+        if (movieDetailsList != null) {
             movieDetailAdapter = new MovieDetailAdapter(movieDetailsList, this);
             recyclerView.setAdapter(movieDetailAdapter);
         }
@@ -128,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
-
     private void spinnerfun(String spinnerValue) {
         switch (spinnerValue) {
             case "Popular":
@@ -165,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (loader == null) {
             loaderManager.initLoader(QUERY_URL_ID, queryBundle, this);
         } else {
-
             loaderManager.restartLoader(QUERY_URL_ID, queryBundle, this);
         }
     }
@@ -179,12 +173,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState!=null){
+        if (savedInstanceState != null) {
             savedInstanceState.getString(KEY_URL);
         }
 
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

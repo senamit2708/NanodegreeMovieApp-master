@@ -45,14 +45,14 @@
         android:id="@+id/txt_movieReleaseDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="38dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="8dp"
         android:text="txt_movie_name"
         android:textColor="@android:color/black"
         android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_bookmark"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtVideo"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/txt_movie_name" />
 
     <TextView
@@ -71,13 +71,13 @@
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
-        android:layout_height="85dp"
-        android:layout_marginBottom="114dp"
-        android:layout_marginTop="113dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnVideo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/btnReview"
-        app:layout_constraintTop_toBottomOf="@+id/txt_movie_name">
+        app:layout_constraintTop_toBottomOf="@+id/voteAverage">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,7 +87,7 @@
             <TextView
                 android:id="@+id/txt_movie_descr"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -99,41 +99,33 @@
         android:id="@+id/voteAverage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:text="Vote Average"
         android:textColor="@android:color/black"
         android:textSize="15dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/movieRating"
-        app:layout_constraintEnd_toStartOf="@+id/movieRating" />
+        app:layout_constraintStart_toStartOf="@+id/txt_movieReleaseDate" />
 
     <TextView
         android:id="@+id/movieRating"
         android:layout_width="96dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:textColor="@android:color/black"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_bookmark" />
-
-    <Button
-        android:id="@+id/btn_bookmark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="20dp"
-        android:text="BookMark"
-        app:layout_constraintStart_toEndOf="@+id/movieRating"
-        app:layout_constraintTop_toTopOf="@+id/txt_movieReleaseDate" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_movieReleaseDate" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="138dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="12dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/btnReview">
+        app:layout_constraintStart_toStartOf="@+id/btnReview"
+        app:layout_constraintTop_toBottomOf="@+id/txtVideo">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -149,33 +141,48 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+
+
     </ScrollView>
 
     <Button
         android:id="@+id/btnReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:text="Review"
-        app:layout_constraintEnd_toStartOf="@+id/txtVideo"
-        app:layout_constraintStart_toStartOf="@+id/txtVideo"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
     <Button
         android:id="@+id/btnVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginBottom="216dp"
+        android:layout_marginStart="2dp"
         android:text="Button"
-        app:layout_constraintStart_toEndOf="@+id/txtVideo"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtVideo" />
 
     <TextView
         android:id="@+id/txtVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="14dp"
+        android:layout_width="50dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="20dp"
+        android:text="Youtube link"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReview" />
+        app:layout_constraintTop_toBottomOf="@+id/btnVideo" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingbtnSave"
+        android:layout_width="284dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="29dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/ic_floating_star" />
 
 </android.support.constraint.ConstraintLayout>

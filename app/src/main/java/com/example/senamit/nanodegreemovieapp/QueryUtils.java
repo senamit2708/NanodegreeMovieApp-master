@@ -170,9 +170,8 @@ public class QueryUtils {
         JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
         JSONObject trailerJsonObject = resultJsonArray.optJSONObject(0);
 
-
-            movieVideo = trailerJsonObject.optString("key");
-            movieDetailsArrayList.add(new MovieDetails(movieVideo));
+        movieVideo = trailerJsonObject.optString("key");
+        movieDetailsArrayList.add(new MovieDetails(movieVideo, "amit"));
 
         return movieDetailsArrayList;
 
