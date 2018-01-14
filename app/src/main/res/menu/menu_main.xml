@@ -10,5 +10,9 @@
    <item android:id="@+id/create_new"
        android:title="create new"
       />
+   <item android:title="refresh"
+      android:id="@+id/refresh"
+      app:showAsAction="always"
+       android:icon="@drawable/ic_refresh"/>
 
 </menu>

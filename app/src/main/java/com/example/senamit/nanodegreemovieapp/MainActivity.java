@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private String KEY_URL = "keyUrl";
     RecyclerView.LayoutManager mLayoutManager;
     private String PREF_FILE = "Option";
+    private  int recyclerNumColumn=0;
 
 
     @Override
@@ -53,13 +54,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             AlertDialogSettingFragment alertDialogSettingFragment = new AlertDialogSettingFragment();
             alertDialogSettingFragment.show(getSupportFragmentManager(), "dialog");
         } else {
-            setupRecyclerView();
+            //setupRecyclerView();
         }
+        setupRecyclerView();
     }
 
     private void setupRecyclerView() {
         recyclerView = findViewById(R.id.recycler);
-        mLayoutManager = new GridLayoutManager(this, 2);
+        recyclerNumColumn=getResources().getInteger(R.integer.recycler_num_columns);
+        Log.i(LOG_TAG, "the recyclernumcolumn is "+recyclerNumColumn);
+        mLayoutManager = new GridLayoutManager(this, recyclerNumColumn);
         recyclerView.setLayoutManager(mLayoutManager);
         makeOperationSearchQuery(stringTest);
 
@@ -74,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<MovieDetails>> loader, List<MovieDetails> movieDetailsList) {
-        if (movieDetailsList != null) {
+        if (movieDetailsList != null  ) {
+            Log.i(LOG_TAG, "inside on Loadfinished");
             movieDetailAdapter = new MovieDetailAdapter(movieDetailsList, this);
             recyclerView.setAdapter(movieDetailAdapter);
         }
@@ -121,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
         return true;
     }
+
+
 
     private void spinnerfun(String spinnerValue) {
         switch (spinnerValue) {
@@ -185,6 +192,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             case R.id.create_new:
                 bookmarkMovie();
                 return true;
+            case R.id.refresh:
+                finish();
+                startActivity(getIntent());
             default:
                 return super.onOptionsItemSelected(item);
         }

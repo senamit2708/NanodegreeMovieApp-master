@@ -23,8 +23,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
-        android:layout_width="368dp"
-        android:layout_height="551dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"

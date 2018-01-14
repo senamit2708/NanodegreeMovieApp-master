@@ -44,8 +44,12 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     String movieId;
     String stringUrl = null;
     TextView txtMovieReview;
+    TextView txtMovieVideo;
     Button btnReview;
-    private int LOADERID=36;
+    Button btnVideo;
+    private int LOADERIDREVIEW=36;
+    private int LOADERIDVIDEO=46;
+    private int loaderId=0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -64,8 +68,10 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         TextView txtMovieDescr = findViewById(R.id.txt_movie_descr);
         TextView txtMovieRating = findViewById(R.id.movieRating);
         txtMovieReview = findViewById(R.id.txt_movie_review);
+        txtMovieVideo = findViewById(R.id.txtVideo);
         btnBookmark = findViewById(R.id.btn_bookmark);
         btnReview = findViewById(R.id.btnReview);
+        btnVideo=findViewById(R.id.btnVideo);
         final ConstraintLayout constraintLayout = findViewById(R.id.constraint_layout_id);
         Intent intent = getIntent();
         bundle = intent.getExtras();
@@ -119,26 +125,49 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
             }
 
             private void loaderMangerReview() {
-                getLoaderManager().initLoader(LOADERID, savedInstanceState, MovieDetailDescription.this);
+                getLoaderManager().initLoader(LOADERIDREVIEW, savedInstanceState, MovieDetailDescription.this);
+            }
+        });
+
+        btnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stringUrl = Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("videos").appendQueryParameter(MovieApiLinkCreator.APIKEY, MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE, MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
+                Log.i(LOG_TAG, "the string url of videos is  "+stringUrl);
+                loaderManagerMovieVideo();
+            }
+
+            private void loaderManagerMovieVideo() {
+                getLoaderManager().initLoader(LOADERIDVIDEO, savedInstanceState, MovieDetailDescription.this);
+
             }
         });
     }
 
     @Override
     public Loader<List<MovieDetails>> onCreateLoader(int id, Bundle args) {
-        return new MovieReviewVideoLoader(this, stringUrl);
+        loaderId = id;
+        Log.i(LOG_TAG,"the loader id is  "+loaderId);
+        return new MovieReviewVideoLoader(this, stringUrl, id);
     }
 
     @Override
     public void onLoadFinished(Loader<List<MovieDetails>> loader, List<MovieDetails> data) {
 
         if (data != null) {
-            int count = data.size();
-            for (int i = 0; i < count; i++) {
-                txtMovieReview.setText(data.get(i).getMovieReview());
+            if (loaderId==LOADERIDREVIEW){
+                int count = data.size();
+                for (int i = 0; i < count; i++) {
+                    txtMovieReview.setText(data.get(i).getMovieReview());
+                }
             }
-        } else {
-            txtMovieReview.setText("No Review Available");
+            if (loaderId==LOADERIDVIDEO){
+                txtMovieVideo.setText(data.get(0).getMovieReview());
+            }
+
+        }else {
+            txtMovieReview.setText(null);
+            txtMovieVideo.setText(null);
         }
     }
 

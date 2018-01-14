@@ -14,9 +14,7 @@
         android:id="@+id/appbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:fitsSystemWindows="true"
-        app:layout_constraintBottom_toTopOf="@+id/txt_movie_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -61,12 +59,11 @@
         android:id="@+id/txt_movie_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_bookmark"
         app:layout_constraintEnd_toEndOf="@+id/txt_movieReleaseDate"
         app:layout_constraintStart_toStartOf="@+id/txt_movieReleaseDate"
         app:layout_constraintTop_toBottomOf="@+id/appbar" />
@@ -74,12 +71,13 @@
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnReview"
+        android:layout_height="85dp"
+        android:layout_marginBottom="114dp"
+        android:layout_marginTop="113dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/scrollView2"
-        app:layout_constraintTop_toBottomOf="@+id/voteAverage">
+        app:layout_constraintStart_toStartOf="@+id/btnReview"
+        app:layout_constraintTop_toBottomOf="@+id/txt_movie_name">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,48 +99,41 @@
         android:id="@+id/voteAverage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="47dp"
         android:text="Vote Average"
         android:textColor="@android:color/black"
         android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
-        app:layout_constraintEnd_toStartOf="@+id/movieRating"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_bookmark" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/movieRating"
+        app:layout_constraintEnd_toStartOf="@+id/movieRating" />
 
     <TextView
         android:id="@+id/movieRating"
-        android:layout_width="0dp"
+        android:layout_width="96dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="144dp"
         android:textColor="@android:color/black"
         android:textSize="15dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/voteAverage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/voteAverage" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_bookmark" />
 
     <Button
         android:id="@+id/btn_bookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="20dp"
         android:text="BookMark"
-        app:layout_constraintBottom_toTopOf="@+id/voteAverage"
         app:layout_constraintStart_toEndOf="@+id/movieRating"
-        app:layout_constraintTop_toBottomOf="@+id/txt_movie_name" />
+        app:layout_constraintTop_toTopOf="@+id/txt_movieReleaseDate" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginStart="14dp"
+        android:layout_height="138dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/btnReview">
+        app:layout_constraintStart_toStartOf="@+id/btnReview">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -164,10 +155,27 @@
         android:id="@+id/btnReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:text="Review"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintStart_toStartOf="@+id/scrollView2"
+        app:layout_constraintEnd_toStartOf="@+id/txtVideo"
+        app:layout_constraintStart_toStartOf="@+id/txtVideo"
         app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+
+    <Button
+        android:id="@+id/btnVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Button"
+        app:layout_constraintStart_toEndOf="@+id/txtVideo"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+
+    <TextView
+        android:id="@+id/txtVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReview" />
 
 </android.support.constraint.ConstraintLayout>

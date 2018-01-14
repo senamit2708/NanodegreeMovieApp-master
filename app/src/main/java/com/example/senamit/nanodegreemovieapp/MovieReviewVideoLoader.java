@@ -17,15 +17,17 @@ public class MovieReviewVideoLoader extends AsyncTaskLoader<List<MovieDetails>> 
     private static final String LOG_TAG = MovieReviewVideoLoader.class.getSimpleName();
     private String stringUrl;
     ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<>();
+    int id=0;
 
 
     public MovieReviewVideoLoader(Context context) {
         super(context);
     }
 
-    public MovieReviewVideoLoader(Context context, String stringUrl) {
+    public MovieReviewVideoLoader(Context context, String stringUrl, int id) {
         super(context);
         this.stringUrl = stringUrl;
+        this.id=id;
     }
 
     @Override
@@ -37,7 +39,13 @@ public class MovieReviewVideoLoader extends AsyncTaskLoader<List<MovieDetails>> 
     public List<MovieDetails> loadInBackground() {
 
         try {
-            movieDetailsArrayList = QueryUtils.fetchMovieReview(stringUrl);
+            if (id==36){
+                movieDetailsArrayList = QueryUtils.fetchMovieReview(stringUrl);
+            }
+            if (id==46){
+                movieDetailsArrayList = QueryUtils.fetchMovieVideo(stringUrl);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

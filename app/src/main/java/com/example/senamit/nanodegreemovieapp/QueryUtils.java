@@ -149,4 +149,33 @@ public class QueryUtils {
         return movieDetailsArrayList;
     }
 
+    public static ArrayList<MovieDetails> fetchMovieVideo(String stringUrl) throws IOException, JSONException {
+        URL url = createUrl(stringUrl);
+        Log.i(LOG_TAG, "the url is " + url);
+        String jsonResponsee = null;
+        jsonResponsee = makeHttpRequest(url);
+        movieDetailsArrayList = extractFeaturesJSONForVideo(jsonResponsee);
+        Log.i(LOG_TAG, "inside the fetchMovieReview to retrive data");
+        return movieDetailsArrayList;
+
+    }
+
+    public static ArrayList<MovieDetails> extractFeaturesJSONForVideo(String jsonResponse) throws JSONException {
+        if (TextUtils.isEmpty(jsonResponse)){
+            return null;
+        }
+        String movieVideo=null;
+        ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<MovieDetails>();
+        JSONObject baseJsonObject = new JSONObject(jsonResponse);
+        JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
+        JSONObject trailerJsonObject = resultJsonArray.optJSONObject(0);
+
+
+            movieVideo = trailerJsonObject.optString("key");
+            movieDetailsArrayList.add(new MovieDetails(movieVideo));
+
+        return movieDetailsArrayList;
+
+    }
+
 }
