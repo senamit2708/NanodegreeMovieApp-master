@@ -6,6 +6,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,8 @@ public class MovieBookmarkedList extends AppCompatActivity implements LoaderMana
     RecyclerView mRecyclerView;
     CustomCursorBookmarkMovieAdapter mAdapter;
     int LOADERID = 29;
+    private int recyclerNumColumn = 2;
+    RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,8 @@ public class MovieBookmarkedList extends AppCompatActivity implements LoaderMana
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewBookmarked);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mLayoutManager= new GridLayoutManager(this, recyclerNumColumn);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new CustomCursorBookmarkMovieAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         getLoaderManager().initLoader(LOADERID, null, this);

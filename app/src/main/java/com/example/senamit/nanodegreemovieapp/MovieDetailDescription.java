@@ -36,21 +36,28 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     private static final String LOG_TAG = MovieDetailDescription.class.getSimpleName();
     MovieDBHelper movieDBHelper;
     String movieId;
+    String moviePoster;
     String stringUrl = null;
     TextView txtMovieReview;
     TextView txtMovieVideo;
     Button btnReview;
     Button btnVideo;
     FloatingActionButton btnFloatingSave;
+    private String KEY_URL = "keyUrl";
     private int LOADERIDREVIEW = 36;
     private int LOADERIDVIDEO = 46;
     private int loaderId = 0;
     private String youtubeKey = null;
+    private String reviewValue=null;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail_description);
+        if (savedInstanceState!=null){
+            reviewValue=savedInstanceState.getString(KEY_URL);
+            Log.i(LOG_TAG, "inside restore instance"+reviewValue);
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -76,7 +83,10 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         txtMovieReleaseDate.setText(movieDetails.getMovieReleaseDate());
         txtMovieDescr.setText(movieDetails.getMovieOverView());
         txtMovieRating.setText(movieDetails.getMovieRating());
+        Log.i(LOG_TAG, "the review is oncreate "+reviewValue);
+        txtMovieReview.setText(reviewValue);
         movieId = movieDetails.getMovieId();
+        moviePoster= movieDetails.getMovieImageUrl();
 
         target = new Target() {
             @Override
@@ -104,6 +114,8 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
 
                 contentValues.put(WishListMovie.COLUMN_MOVIE_NAME, movieName);
                 contentValues.put(WishListMovie.COLUMN_MOVIE_RELEASE_DATE, "1992");
+                Log.i(LOG_TAG, "the poster url is "+moviePoster);
+                contentValues.put(WishListMovie.COLUMN_MOVIE_POSTER,moviePoster);
                 Uri uriId = getContentResolver().insert(WishListMovie.CONTENT_URI, contentValues);
                 if (uriId != null) {
                     Toast.makeText(MovieDetailDescription.this, "successful", Toast.LENGTH_SHORT).show();
@@ -157,7 +169,8 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
             }
             if (loaderId == LOADERIDREVIEW) {
                 int count = data.size();
-                txtMovieReview.setText(data.get(0).getMovieReview());
+                reviewValue=data.get(0).getMovieReview();
+                txtMovieReview.setText(reviewValue);
             }
 
         } else {
@@ -175,4 +188,11 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     public void onLoaderReset(Loader<List<MovieDetails>> loader) {
         Log.i(LOG_TAG, "inside reset loader");
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_URL,reviewValue);
+    }
+
 }

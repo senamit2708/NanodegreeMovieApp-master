@@ -34,15 +34,18 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         int idIndex = mCursor.getColumnIndex(WishListMovie._ID);
-        int movieNameIndex = mCursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_NAME);
-        int movieReleaseDateIndex = mCursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_RELEASE_DATE);
+//        int movieNameIndex = mCursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_NAME);
+//        int movieReleaseDateIndex = mCursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_RELEASE_DATE);
+        int moviePosterIndex = mCursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_POSTER);
         Log.i(LOG_TAG, "inside on bind of bookmark activity");
         mCursor.moveToPosition(position);
         final int id = mCursor.getInt(idIndex);
-        String movieName = mCursor.getString(movieNameIndex);
-        String movieReleaseDate = mCursor.getString(movieReleaseDateIndex);
-        holder.txtMovieName.setText(movieName);
-        holder.txtMovieReleaseDate.setText(movieReleaseDate);
+//        String movieName = mCursor.getString(movieNameIndex);
+//        String movieReleaseDate = mCursor.getString(movieReleaseDateIndex);
+        String moviePoster = mCursor.getString(moviePosterIndex);
+//        holder.txtMovieName.setText(movieName);
+//        holder.txtMovieReleaseDate.setText(movieReleaseDate);
+        Picasso.with(context).load(moviePoster).placeholder(R.drawable.testimage1).error(R.drawable.testimage1).into(holder.imageView);
     }
 
     @Override
@@ -69,15 +72,15 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtMovieName;
-        TextView txtMovieReleaseDate;
+//        TextView txtMovieName;
+//        TextView txtMovieReleaseDate;
         ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            txtMovieName = itemView.findViewById(R.id.txt_movie_name);
-            txtMovieReleaseDate = itemView.findViewById(R.id.txt_movieReleaseDate);
+//            txtMovieName = itemView.findViewById(R.id.txt_movie_name);
+//            txtMovieReleaseDate = itemView.findViewById(R.id.txt_movieReleaseDate);
             imageView = itemView.findViewById(R.id.imageview);
         }
     }
