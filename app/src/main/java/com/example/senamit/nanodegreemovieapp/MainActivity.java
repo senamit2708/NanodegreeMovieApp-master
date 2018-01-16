@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onListItemClick(int clikcedItemIndex, MovieDetails movieDetailsList) {
+
         Intent intent = new Intent(MainActivity.this, MovieDetailDescription.class);
         intent.putExtra("movieDesc", movieDetailsList);
         startActivity(intent);

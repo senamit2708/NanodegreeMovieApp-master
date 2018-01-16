@@ -1,6 +1,7 @@
 package com.example.senamit.nanodegreemovieapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.senamit.nanodegreemovieapp.Data.MovieContract.*;
 import com.squareup.picasso.Picasso;
@@ -19,9 +21,17 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
 
     Context context;
     Cursor mCursor;
+    int idIndex;
+    ListItemClickListener listItemClick;
+
 
     public CustomCursorBookmarkMovieAdapter(Context context) {
         this.context = context;
+    }
+
+    public CustomCursorBookmarkMovieAdapter(Context context, ListItemClickListener listItemClick) {
+        this.context = context;
+        this.listItemClick = listItemClick;
     }
 
     @Override
@@ -33,7 +43,7 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        int idIndex = mCursor.getColumnIndex(WishListMovie._ID);
+        idIndex = mCursor.getColumnIndex(WishListMovie._ID);
 //        int movieNameIndex = mCursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_NAME);
 //        int movieReleaseDateIndex = mCursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_RELEASE_DATE);
         int moviePosterIndex = mCursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_POSTER);
@@ -53,7 +63,7 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
         if (mCursor == null) {
             return 0;
         }
-        Log.i(LOG_TAG, "the count of cursor is " + mCursor.getCount());
+//        Log.i(LOG_TAG, "the count of cursor is " + mCursor.getCount());
         return mCursor.getCount();
     }
 
@@ -70,7 +80,7 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 //        TextView txtMovieName;
 //        TextView txtMovieReleaseDate;
@@ -82,6 +92,24 @@ public class CustomCursorBookmarkMovieAdapter extends RecyclerView.Adapter<Custo
 //            txtMovieName = itemView.findViewById(R.id.txt_movie_name);
 //            txtMovieReleaseDate = itemView.findViewById(R.id.txt_movieReleaseDate);
             imageView = itemView.findViewById(R.id.imageview);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int clickedItemIndex = getAdapterPosition();
+//            Toast.makeText(v.getContext(), getPosition(), Toast.LENGTH_SHORT).show();
+            Log.i(LOG_TAG, "the item click is "+clickedItemIndex);
+            mCursor.moveToPosition(clickedItemIndex);
+            int idIndex=mCursor.getColumnIndex(WishListMovie._ID);
+            int id = mCursor.getInt(idIndex);
+            Log.i(LOG_TAG, "the id of item is "+id);
+            listItemClick.onListItemClick(clickedItemIndex, id);
         }
     }
+
+    public interface ListItemClickListener {
+        void onListItemClick(int clikcedItemIndex, int id);
+    }
+
 }

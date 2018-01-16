@@ -27,6 +27,8 @@ public class MovieContract {
         public static final String COLUMN_MOVIE_NAME = "MovieName";
         public static final String COLUMN_MOVIE_RELEASE_DATE = "MovieReleaseDate";
         public static final String COLUMN_MOVIE_POSTER="MoviePoster";
+        public static final String COLUMN_MOVIE_RATING="MovieRating";
+        public static final String COLUMN_MOVIE_OVERVIEW="MovieOverView";
 
 
     }

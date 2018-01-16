@@ -28,17 +28,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".MovieBookmarkedList"
+        <activity
+            android:name=".MovieBookmarkedList"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <provider
+            android:name=".Data.MovieContenetProvider"
             android:authorities="com.example.senamit.nanodegreemovieapp"
-            android:name="com.example.senamit.nanodegreemovieapp.Data.MovieContenetProvider"
-            android:exported="false"/>
-        
+            android:exported="false" />
+
+        <activity android:name=".MovieBookMarkedDescription"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MovieBookmarkedList">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MovieBookmarkedList" /></activity>
     </application>
 
 </manifest>

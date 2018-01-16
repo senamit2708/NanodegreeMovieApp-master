@@ -1,5 +1,6 @@
 package com.example.senamit.nanodegreemovieapp.Data;
 
+import android.app.LoaderManager;
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -50,6 +51,7 @@ public class MovieContenetProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
 
+        Log.i(LOG_TAG, "inside the query method of content provider");
         db = movieDBHelper.getReadableDatabase();
         int match = sUriMatcher.match(uri);
         Cursor retCursor;
@@ -68,11 +70,11 @@ public class MovieContenetProvider extends ContentProvider {
                 String id = uri.getPathSegments().get(1);
                 String mSelection = "_id=?";
                 String[] mSelectionArgs = new String[]{id};
-
+                Log.i(LOG_TAG, "inside the list item and the id is  "+id);
                 retCursor = db.query(WishListMovie.TABLE_NAME,
                         projection,
-                        selection,
-                        selectionArgs,
+                        mSelection,
+                        mSelectionArgs,
                         null,
                         null,
                         sortOrder);

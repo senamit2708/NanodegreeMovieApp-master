@@ -67,9 +67,9 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         movieDBHelper = new MovieDBHelper(this);
 
         final TextView txtMovieName = findViewById(R.id.txt_movie_name);
-        TextView txtMovieReleaseDate = findViewById(R.id.txt_movieReleaseDate);
-        TextView txtMovieDescr = findViewById(R.id.txt_movie_descr);
-        TextView txtMovieRating = findViewById(R.id.movieRating);
+        final TextView txtMovieReleaseDate = findViewById(R.id.txt_movieReleaseDate);
+        final TextView txtMovieDescr = findViewById(R.id.txt_movie_descr);
+        final TextView txtMovieRating = findViewById(R.id.movieRating);
         txtMovieReview = findViewById(R.id.txt_movie_review);
         txtMovieVideo = findViewById(R.id.txtVideo);
         btnReview = findViewById(R.id.btnReview);
@@ -111,9 +111,14 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
             public void onClick(View v) {
                 ContentValues contentValues = new ContentValues();
                 String movieName = txtMovieName.getText().toString();
+                String movieReleaseDate = txtMovieReleaseDate.getText().toString();
+                String movieRating = txtMovieRating.getText().toString();
+                String movieOverview = txtMovieDescr.getText().toString();
 
                 contentValues.put(WishListMovie.COLUMN_MOVIE_NAME, movieName);
-                contentValues.put(WishListMovie.COLUMN_MOVIE_RELEASE_DATE, "1992");
+                contentValues.put(WishListMovie.COLUMN_MOVIE_RELEASE_DATE, movieReleaseDate);
+                contentValues.put(WishListMovie.COLUMN_MOVIE_RATING, movieRating);
+                contentValues.put(WishListMovie.COLUMN_MOVIE_OVERVIEW, movieOverview);
                 Log.i(LOG_TAG, "the poster url is "+moviePoster);
                 contentValues.put(WishListMovie.COLUMN_MOVIE_POSTER,moviePoster);
                 Uri uriId = getContentResolver().insert(WishListMovie.CONTENT_URI, contentValues);
