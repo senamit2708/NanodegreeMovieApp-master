@@ -40,9 +40,11 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     MovieDBHelper movieDBHelper;
     String movieId;
     String moviePoster;
-    String stringUrl = null;
+    String stringUrl1 = null;
+    String stringUrl2 = null;
     TextView txtMovieReview;
     TextView txtMovieVideo;
+    TextView txtVideoDesc;
     ListView listViewMovieVideo;
     MovieListViewVideoAdapter movieListViewVideoAdapter;
     Button btnReview;
@@ -65,6 +67,9 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
             reviewValue=savedInstanceState.getString(KEY_URL);
             Log.i(LOG_TAG, "inside restore instance"+reviewValue);
 //            getLoaderManager().initLoader(LOADERIDVIDEO, savedInstanceState, MovieDetailDescription.this);
+            stringUrl2 = Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("videos").appendQueryParameter(MovieApiLinkCreator.APIKEY, MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE, MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
+
+            getLoaderManager().initLoader(LOADERIDVIDEO, savedInstanceState, MovieDetailDescription.this);
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,6 +83,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         final TextView txtMovieReleaseDate = findViewById(R.id.txt_movieReleaseDate);
         final TextView txtMovieDescr = findViewById(R.id.txt_movie_descr);
         final TextView txtMovieRating = findViewById(R.id.movieRating);
+        txtVideoDesc = findViewById(R.id.txtVideoDesc);
         listViewMovieVideo = findViewById(R.id.listViewVideo);
         txtMovieReview = findViewById(R.id.txt_movie_review);
 //        txtMovieVideo = findViewById(R.id.txtVideo);
@@ -143,7 +149,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "inside review button click");
-                stringUrl = Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("reviews").appendQueryParameter(MovieApiLinkCreator.APIKEY, MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE, MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
+                stringUrl1 = Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("reviews").appendQueryParameter(MovieApiLinkCreator.APIKEY, MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE, MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
                 loaderMangerReview();
             }
 
@@ -156,8 +162,8 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stringUrl = Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("videos").appendQueryParameter(MovieApiLinkCreator.APIKEY, MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE, MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
-                Log.i(LOG_TAG, "the string url of videos is  " + stringUrl);
+                stringUrl2 = Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("videos").appendQueryParameter(MovieApiLinkCreator.APIKEY, MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE, MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
+                Log.i(LOG_TAG, "the string url of videos is  " + stringUrl2);
                 loaderManagerMovieVideo();
             }
 
@@ -188,21 +194,29 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
 
     @Override
     public Loader<List<MovieDetails>> onCreateLoader(int id, Bundle args) {
+        Log.i(LOG_TAG, "inside oncreate loader");
         loaderId = id;
-        return new MovieReviewVideoLoader(this, stringUrl, id);
+        if (loaderId == LOADERIDREVIEW) {
+            return new MovieReviewVideoLoader(this, stringUrl1, id);
+        }if (loaderId==LOADERIDVIDEO){
+            return new MovieReviewVideoLoader(this, stringUrl2, id);
+        }
+       return null;
     }
 
     @Override
     public void onLoadFinished(Loader<List<MovieDetails>> loader, List<MovieDetails> data) {
 
+        Log.i(LOG_TAG, "inside on load finished");
         if (data != null) {
-
+            Log.i(LOG_TAG, "inside on load finished not null value");
             if (loaderId == LOADERIDVIDEO) {
+                Log.i(LOG_TAG, "inside on load finished loadervideo");
                  arrayList = new ArrayList(data);
                 movieListViewVideoAdapter = new MovieListViewVideoAdapter(this, arrayList);
                 listViewMovieVideo.setAdapter(movieListViewVideoAdapter);
-//                txtMovieVideo.setText(data.get(0).getMovieReview());
-//                youtubeKey = data.get(0).getMovieVideo();
+                loaderId=0;
+
             }
             if (loaderId == LOADERIDREVIEW) {
                 int count = data.size();
@@ -217,6 +231,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
                     txtMovieReview.setText("NO REVIEW AVAILABLE ");
                 }
 
+                loaderId=0;
             }
 
         }

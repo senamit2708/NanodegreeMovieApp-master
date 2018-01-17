@@ -6,10 +6,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtVideoName"/>
+        android:id="@+id/txtVideoName"
+        android:textStyle="bold"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtVideoLink"/>
+        android:id="@+id/txtVideoLink"
+        android:visibility="gone"/>
 
 </LinearLayout>

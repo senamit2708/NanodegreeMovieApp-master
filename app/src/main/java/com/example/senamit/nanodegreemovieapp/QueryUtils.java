@@ -137,7 +137,7 @@ public class QueryUtils {
             Log.i(LOG_TAG,"inside empty json of review");
             return null;
         }
-        String movieReview = "no movie";
+        String movieReview = null;
         ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<MovieDetails>();
         JSONObject baseJsonObject = new JSONObject(jsonResponse);
         JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
@@ -169,6 +169,7 @@ public class QueryUtils {
             return null;
         }
         String movieVideo=null;
+        String videoName=null;
         ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<MovieDetails>();
         JSONObject baseJsonObject = new JSONObject(jsonResponse);
         JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
@@ -176,7 +177,8 @@ public class QueryUtils {
             JSONObject trailerJsonObject = resultJsonArray.optJSONObject(i);
 
             movieVideo = trailerJsonObject.optString("key");
-            movieDetailsArrayList.add(new MovieDetails(movieVideo, "amit"));
+            videoName= trailerJsonObject.optString("name");
+            movieDetailsArrayList.add(new MovieDetails(movieVideo, videoName));
         }
         return movieDetailsArrayList;
 

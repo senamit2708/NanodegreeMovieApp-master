@@ -42,7 +42,6 @@
             android:exported="false" />
 
         <activity android:name=".MovieBookMarkedDescription"
-            android:launchMode="singleTop"
             android:parentActivityName=".MovieBookmarkedList">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

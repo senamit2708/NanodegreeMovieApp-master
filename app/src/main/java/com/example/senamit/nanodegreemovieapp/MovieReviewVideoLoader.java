@@ -41,23 +41,27 @@ public class MovieReviewVideoLoader extends AsyncTaskLoader<List<MovieDetails>> 
     public List<MovieDetails> loadInBackground() {
 
         try {
+            Log.i(LOG_TAG, "inside try block of review video");
 
             if (id==LOADERIDVIDEO){
                 movieDetailsArrayList = QueryUtils.fetchMovieVideo(stringUrl);
+                return movieDetailsArrayList;
             }
-           else if (id==LOADERIDREVIEW){
+           if (id==LOADERIDREVIEW){
                 movieDetailsArrayList = QueryUtils.fetchMovieReview(stringUrl);
+               return movieDetailsArrayList;
             }
-            else{
-               return null;
-            }
+
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.i(LOG_TAG, "inside doinbackground and in null return");
+        return null;
 
-        return movieDetailsArrayList;
     }
 }

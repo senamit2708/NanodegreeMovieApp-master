@@ -92,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
+                android:text="review"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -120,6 +121,7 @@
         android:layout_marginEnd="142dp"
         android:layout_marginTop="7dp"
         android:textColor="@android:color/black"
+        android:text="movierating"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/voteAverage"

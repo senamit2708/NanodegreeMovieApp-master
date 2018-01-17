@@ -136,7 +136,7 @@ public class MovieBookMarkedDescription extends AppCompatActivity implements Loa
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
-        txtText.setText("");
+//        txtText.setText(null);
     }
 
 }

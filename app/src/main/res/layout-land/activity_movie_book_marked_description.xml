@@ -14,9 +14,7 @@
         android:id="@+id/appbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:fitsSystemWindows="true"
-        app:layout_constraintBottom_toTopOf="@+id/txt_movie_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,38 +45,61 @@
         android:id="@+id/txt_movieReleaseDate"
         android:layout_width="111dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
+        android:layout_marginTop="126dp"
         android:text="txt_movie_name"
         android:textColor="@android:color/black"
         android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/voteAverage"
         app:layout_constraintStart_toStartOf="@+id/voteAverage"
-        app:layout_constraintTop_toBottomOf="@+id/txt_movie_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_movie_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="7dp"
         android:text="TextView"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txt_movieReleaseDate"
+        app:layout_constraintStart_toEndOf="@+id/voteAverage" />
+
+    <TextView
+        android:id="@+id/voteAverage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="5dp"
+        android:text="Vote Average"
+        android:textColor="@android:color/black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/movieRating"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_movieReleaseDate" />
+
+    <TextView
+        android:id="@+id/movieRating"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="347dp"
+        android:layout_marginTop="5dp"
+        android:text="movierating"
+        android:textColor="@android:color/black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/voteAverage"
-        app:layout_constraintTop_toBottomOf="@+id/appbar" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_movieReleaseDate" />
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="358dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginStart="67dp"
+        android:layout_width="450dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="42dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txt_movie_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/voteAverage">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,39 +110,13 @@
                 android:id="@+id/txt_movie_descr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="review"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/voteAverage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="37dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="38dp"
-        android:text="Vote Average"
-        android:textColor="@android:color/black"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
-        app:layout_constraintEnd_toStartOf="@+id/movieRating"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_movieReleaseDate" />
-
-    <TextView
-        android:id="@+id/movieRating"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="349dp"
-        android:layout_marginTop="6dp"
-        android:textColor="@android:color/black"
-        android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/voteAverage"
-        app:layout_constraintTop_toBottomOf="@+id/txt_movieReleaseDate" />
 
 </android.support.constraint.ConstraintLayout>
 
