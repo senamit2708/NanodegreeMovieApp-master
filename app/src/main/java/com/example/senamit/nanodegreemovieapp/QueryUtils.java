@@ -134,16 +134,20 @@ public class QueryUtils {
 
     public static ArrayList<MovieDetails> extractFeaturesJSONForReview(String jsonResponse) throws JSONException {
         if (TextUtils.isEmpty(jsonResponse)) {
+            Log.i(LOG_TAG,"inside empty json of review");
             return null;
         }
-        String movieReview = null;
+        String movieReview = "no movie";
         ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<MovieDetails>();
         JSONObject baseJsonObject = new JSONObject(jsonResponse);
         JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
+        Log.i(LOG_TAG,"the length of resultjsonarray is "+resultJsonArray.length());
         for (int i = 0; i < resultJsonArray.length(); i++) {
+            Log.i(LOG_TAG, "inside the loop of review");
             JSONObject resultJsonObject = resultJsonArray.optJSONObject(i);
 
             movieReview = resultJsonObject.optString("content");
+            Log.i(LOG_TAG,"the review is  "+movieReview);
             movieDetailsArrayList.add(new MovieDetails(movieReview));
         }
         return movieDetailsArrayList;
@@ -168,11 +172,12 @@ public class QueryUtils {
         ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<MovieDetails>();
         JSONObject baseJsonObject = new JSONObject(jsonResponse);
         JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
-        JSONObject trailerJsonObject = resultJsonArray.optJSONObject(0);
+        for (int i = 0; i < resultJsonArray.length(); i++) {
+            JSONObject trailerJsonObject = resultJsonArray.optJSONObject(i);
 
-        movieVideo = trailerJsonObject.optString("key");
-        movieDetailsArrayList.add(new MovieDetails(movieVideo, "amit"));
-
+            movieVideo = trailerJsonObject.optString("key");
+            movieDetailsArrayList.add(new MovieDetails(movieVideo, "amit"));
+        }
         return movieDetailsArrayList;
 
     }

@@ -16,7 +16,7 @@ public class MovieDetails implements Parcelable {
     private String movieId;
     private String movieReview;
     private String movieVideo;
-    private String extraParameter;
+    private String movieVideoName;
 
 
     public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, String movieImageUrl) {
@@ -32,9 +32,9 @@ public class MovieDetails implements Parcelable {
         this.movieReview = movieReview;
     }
 
-    public MovieDetails(String movieVideo, String extraParameter) {
+    public MovieDetails(String movieVideo, String movieVideoName) {
         this.movieVideo = movieVideo;
-        this.extraParameter = extraParameter;
+        this.movieVideoName = movieVideoName;
     }
 
     public MovieDetails(String movieName, String movieReleaseDate, String movieRating, String movieOverView, String movieImageUrl, String movieId) {
@@ -103,6 +103,10 @@ public class MovieDetails implements Parcelable {
 
     public String getMovieVideo() {
         return movieVideo;
+    }
+
+    public String getMovieVideoName() {
+        return movieVideoName;
     }
 
     @Override

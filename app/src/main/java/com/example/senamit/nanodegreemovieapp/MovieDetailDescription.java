@@ -2,6 +2,7 @@ package com.example.senamit.nanodegreemovieapp;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.graphics.Bitmap;
@@ -15,7 +16,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,15 +43,19 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     String stringUrl = null;
     TextView txtMovieReview;
     TextView txtMovieVideo;
+    ListView listViewMovieVideo;
+    MovieListViewVideoAdapter movieListViewVideoAdapter;
     Button btnReview;
     Button btnVideo;
     FloatingActionButton btnFloatingSave;
     private String KEY_URL = "keyUrl";
+    private String KEY_URL_ARRAY="KeyUrlArray";
     private int LOADERIDREVIEW = 36;
     private int LOADERIDVIDEO = 46;
     private int loaderId = 0;
     private String youtubeKey = null;
     private String reviewValue=null;
+    ArrayList<MovieDetails> arrayList;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -57,6 +64,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         if (savedInstanceState!=null){
             reviewValue=savedInstanceState.getString(KEY_URL);
             Log.i(LOG_TAG, "inside restore instance"+reviewValue);
+//            getLoaderManager().initLoader(LOADERIDVIDEO, savedInstanceState, MovieDetailDescription.this);
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,8 +78,9 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         final TextView txtMovieReleaseDate = findViewById(R.id.txt_movieReleaseDate);
         final TextView txtMovieDescr = findViewById(R.id.txt_movie_descr);
         final TextView txtMovieRating = findViewById(R.id.movieRating);
+        listViewMovieVideo = findViewById(R.id.listViewVideo);
         txtMovieReview = findViewById(R.id.txt_movie_review);
-        txtMovieVideo = findViewById(R.id.txtVideo);
+//        txtMovieVideo = findViewById(R.id.txtVideo);
         btnReview = findViewById(R.id.btnReview);
         btnVideo = findViewById(R.id.btnVideo);
         btnFloatingSave = (FloatingActionButton) findViewById(R.id.floatingbtnSave);
@@ -87,6 +96,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         txtMovieReview.setText(reviewValue);
         movieId = movieDetails.getMovieId();
         moviePoster= movieDetails.getMovieImageUrl();
+        final Context context = MovieDetailDescription.this;
 
         target = new Target() {
             @Override
@@ -104,7 +114,6 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
 
         };
         Picasso.with(this).load(movieDetails.getMovieImageUrl()).into(target);
-
 
         btnFloatingSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,11 +142,13 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(LOG_TAG, "inside review button click");
                 stringUrl = Uri.parse(MovieApiLinkCreator.MOVIE_DETAILS_JSON_DATA).buildUpon().appendPath(movieId).appendPath("reviews").appendQueryParameter(MovieApiLinkCreator.APIKEY, MovieApiLinkCreator.KEY).appendQueryParameter(MovieApiLinkCreator.LANGUAGE, MovieApiLinkCreator.LANGUAGEVALUE).build().toString();
                 loaderMangerReview();
             }
 
             private void loaderMangerReview() {
+
                 getLoaderManager().initLoader(LOADERIDREVIEW, savedInstanceState, MovieDetailDescription.this);
             }
         });
@@ -155,6 +166,24 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
 
             }
         });
+
+        listViewMovieVideo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(LOG_TAG, "inside onItem click of listview");
+                String videoId= arrayList.get(position).getMovieVideo().toString();
+                Log.i(LOG_TAG, "the video id is  "+videoId);
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + videoId));
+                Log.i(LOG_TAG, "the video id is  "+appIntent);
+                try{
+                    context.startActivity(appIntent);
+                }catch (Exception e){
+                    Log.i(LOG_TAG, "no video found");
+                }
+            }
+        });
+
+
     }
 
     @Override
@@ -169,24 +198,37 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
         if (data != null) {
 
             if (loaderId == LOADERIDVIDEO) {
+                 arrayList = new ArrayList(data);
+                movieListViewVideoAdapter = new MovieListViewVideoAdapter(this, arrayList);
+                listViewMovieVideo.setAdapter(movieListViewVideoAdapter);
 //                txtMovieVideo.setText(data.get(0).getMovieReview());
-                youtubeKey = data.get(0).getMovieVideo();
+//                youtubeKey = data.get(0).getMovieVideo();
             }
             if (loaderId == LOADERIDREVIEW) {
                 int count = data.size();
-                reviewValue=data.get(0).getMovieReview();
-                txtMovieReview.setText(reviewValue);
-            }
+                Log.i(LOG_TAG,"the count is "+count);
+                for (int i=0;i<count;i++){
+                    reviewValue=data.get(i).getMovieReview();
+                }
+                if (reviewValue!=null){
+                    txtMovieReview.setText(reviewValue);
+                }
+                else {
+                    txtMovieReview.setText("NO REVIEW AVAILABLE ");
+                }
 
-        } else {
-            if (loaderId == LOADERIDREVIEW) {
-                txtMovieReview.setText(null);
-            }
-            if (loaderId == LOADERIDVIDEO) {
-//                txtMovieVideo.setText(null);
             }
 
         }
+// else {
+//            if (loaderId == LOADERIDREVIEW) {
+//                txtMovieReview.setText(null);
+//            }
+//            if (loaderId == LOADERIDVIDEO) {
+//                txtMovieVideo.setText(null);
+//            }
+//
+//        }
     }
 
     @Override
@@ -198,6 +240,7 @@ public class MovieDetailDescription extends AppCompatActivity implements LoaderM
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_URL,reviewValue);
+        outState.putInt(KEY_URL_ARRAY, 2);
     }
 
 }

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         sharedPreferences = getSharedPreferences(PREF_FILE, MODE_PRIVATE);
         editor = sharedPreferences.edit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Log.i(LOG_TAG, "inside main mathod");
         setSupportActionBar(toolbar);
         if (!CheckNetwork.isInternetAvailable(getApplicationContext())) {
             AlertDialogSettingFragment alertDialogSettingFragment = new AlertDialogSettingFragment();

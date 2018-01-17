@@ -45,8 +45,7 @@
         android:id="@+id/txt_movieReleaseDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="42dp"
         android:text="txt_movie_name"
         android:textColor="@android:color/black"
         android:textSize="15dp"
@@ -66,23 +65,48 @@
 
     <TextView
         android:id="@+id/movieRating"
-        android:layout_width="99dp"
+        android:layout_width="101dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="101dp"
-        android:layout_marginStart="106dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginStart="113dp"
         android:textColor="@android:color/black"
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="@+id/txt_movie_name"
         app:layout_constraintStart_toStartOf="@+id/voteAverage"
         app:layout_constraintTop_toBottomOf="@+id/txt_movie_name" />
 
+    <Button
+        android:id="@+id/btnReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="94dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="96dp"
+        android:text="Review"
+        app:layout_constraintBottom_toBottomOf="@+id/btnVideo"
+        app:layout_constraintEnd_toStartOf="@+id/scrollView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_movieReleaseDate" />
+
+    <Button
+        android:id="@+id/btnVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Video"
+        app:layout_constraintEnd_toStartOf="@+id/listViewVideo"
+        app:layout_constraintTop_toTopOf="@+id/listViewVideo" />
+
     <ScrollView
-        android:id="@+id/scrollView3"
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="6dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btnReview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,41 +124,43 @@
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnReview"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingbtnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="126dp"
-        android:layout_marginStart="8dp"
-        android:text="Review"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/scrollView3" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/ic_floating_star" />
 
-    <Button
-        android:id="@+id/btnVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
-        android:layout_marginStart="8dp"
-        android:text="Video"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <ListView
+        android:id="@+id/listViewVideo"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginStart="51dp"
+        app:layout_constraintBottom_toTopOf="@+id/floatingbtnSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txt_movieReleaseDate"
+        app:layout_constraintTop_toTopOf="@+id/floatingbtnSave" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollView3"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="31dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="39dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtVideo"
+        android:layout_height="72dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="67dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnVideo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnReview">
+        app:layout_constraintStart_toEndOf="@+id/btnReview"
+        app:layout_constraintTop_toTopOf="@+id/scrollView2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,32 +174,8 @@
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/txtVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="33dp"
-        android:layout_marginStart="48dp"
-        android:text="@string/youtubelink"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnVideo" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingbtnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/ic_floating_star" />
 
 
 </android.support.constraint.ConstraintLayout>
